@@ -1,6 +1,68 @@
 <div class="h-screen w-full flex items-center justify-center bg-gray-100">
-  <div class="w-[425px] h-[912px] bg-[#ffb7a1]">
-    <h1 class="text-4xl font-bold text-gray-800">Welcome to Astro</h1>
-    <p class="text-gray-600">The best way to build faster websites with less JavaScript</p>
+  <div
+    class="relative w-[425px] h-[912px] bg-[#b3a087] [&_img]:absolute shadow-2xl flex justify-center items-center z-0"
+  >
+    <img
+      src="/images/flower1.png"
+      alt="Flower"
+      class="w-[200px] h-[200px] -right-8 bottom-15 z-5"
+    />
+    <img
+      src="/images/flower2.png"
+      alt="Flower"
+      class="w-[150px] h-[150px] -left-4 -top-2 z-3"
+    />
+    <img
+      src="/images/paper1.png"
+      alt="Flower"
+      class="w-[380px] h-[380px] left-6 -top-5 z-1"
+    />
+    <img
+      src="/images/paper2.png"
+      alt="Flower"
+      class="w-[350px] h-[350px] left-8 top-4 z-1"
+    />
+    <img
+      src="/images/paper2.png"
+      alt="Flower"
+      class="w-[350px] h-[350px] left-8 bottom-0 z-1"
+    />
+    <img
+      src="/images/happy.png"
+      alt="Flower"
+      class="w-[300px] h-[300px] left-15 top-0 z-5"
+    />
+    <img
+      src="/images/love.png"
+      alt="Flower"
+      class="w-[220px] h-[220px] bottom-28 z-5"
+    />
+    <img
+      src="/images/heart.png"
+      alt="Flower"
+      class="w-[200px] h-[200px] -left-4 bottom-32 z-5"
+    />
+    <div
+      class="bg-[#f2f1eb] w-8/9 h-3/5 mx-auto z-4 custom-shadow absolute flex items-center justify-center"
+    >
+      <img
+        src="/images/image.jpg"
+        alt="Flower"
+        class="relative w-8/9 object-cover object-top h-4/5 top-6 custom-shadow transition-opacity duration-300 hover:opacity-0"
+      />
+      <img
+        src="/images/image.webp"
+        alt="Flower"
+        class="relative w-8/9 object-cover object-top h-4/5 top-6 custom-shadow opacity-0 transition-opacity duration-300 hover:opacity-100"
+      />
+    </div>
   </div>
 </div>
+
+<style>
+  .custom-shadow {
+    box-shadow:
+      rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+      rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  }
+</style>
