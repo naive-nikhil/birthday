@@ -1,48 +1,39 @@
-name: Deploy Astro Site to GitHub Pages # Workflow name (appears in GitHub Actions tab)
+name: Deploy to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches: [main] # ✅ Runs when code is pushed to the `main` branch
-  workflow_dispatch: # ✅ Allows manual triggering from GitHub Actions UI
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
 
+# Allow this job to clone the repo and create a page deployment
 permissions:
-  contents: read # ✅ Allows the workflow to read repository contents
-  pages: write # ✅ Required for deploying to GitHub Pages
-  id-token: write # ✅ Used for authentication to GitHub Pages
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
-    runs-on: ubuntu-latest # ✅ Specifies the OS for the job
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4 # ✅ Clones your GitHub repo
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v4 # ✅ Sets up Node.js
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
         with:
-          node-version: 18
-          cache: "npm" # ✅ Caches dependencies to speed up future runs
-
-      - name: Install dependencies
-        run: npm ci # ✅ Installs dependencies from package-lock.json
-        working-directory: frontend # ✅ Ensures commands run in `frontend/`
-
-      - name: Build Astro site
-        run: npm run build # ✅ Runs the Astro build command
-        working-directory: frontend
-
-      - name: Upload artifact for deployment
-        uses: actions/upload-pages-artifact@v2 # ✅ Uploads the built site
-        with:
-          path: frontend/dist # ✅ Make sure this matches your build output folder
+          path: ./frontend # The root location of your Astro project inside the repository. (optional)
+        # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+        # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
 
   deploy:
-    needs: build # ✅ Runs only after `build` job completes successfully
+    needs: build
     runs-on: ubuntu-latest
     environment:
-      name: github-pages # ✅ Deploys to GitHub Pages
-      url: ${{ steps.deployment.outputs.page_url }} # ✅ Outputs the deployment URL
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # ✅ Deploys the uploaded artifact to GitHub Pages
+        uses: actions/deploy-pages@v4
