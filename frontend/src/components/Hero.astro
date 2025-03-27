@@ -1,6 +1,8 @@
 <div class="flex h-screen w-full items-center justify-center bg-gray-100">
-  <div id="countdown" class="text-[90px] font-extrabold flex">
+  <div id="countdown" class="text-[80px] font-extrabold flex">
     <div class="flex gap-1 justify-center items-center">
+      <div id="days" class=""></div>
+      <p id="colon">:</p>
       <div id="hours" class=""></div>
       <p id="colon">:</p>
       <div id="minutes" class=""></div>
@@ -9,41 +11,41 @@
   </div>
   <div id="content" class="hidden">
     <div
-      class="flex relative w-[425px] h-[912px] bg-[#b3a087] [&_img]:absolute shadow-2xl justify-center items-center z-0 overflow-hidden"
+      class="flex relative w-screen sm:w-[640px] h-[912px] bg-[#b3a087] [&_img]:absolute shadow-2xl justify-center items-center z-0 overflow-hidden"
     >
       <img
         src="images/flower1.png"
         alt="Flower"
-        class="w-[200px] h-[200px] -right-8 bottom-15 z-5 slideLeft"
+        class="w-1/2 -right-8 bottom-15 z-5 slideLeft"
         style="animation-delay:2s;animation-fill-mode: backwards;"
       />
       <img
         src="images/flower2.png"
         alt="Flower"
-        class="w-[150px] h-[150px] -left-4 -top-2 z-3 slideRight"
+        class="w-1/3 left-0 top-4 z-3 slideRight"
         style="animation-delay:2s;animation-fill-mode: backwards;"
       />
       <img
         src="images/paper1.png"
         alt="Flower"
-        class="max-w-[380px] h-[380px] left-6 -top-5 z-1 slideDown"
+        class="w-[calc(100%*8/9)] h-[700px] -top-20 z-1 slideDown"
       />
       <img
         src="images/paper2.png"
         alt="Flower"
-        class="max-w-[350px] h-[350px] left-8 top-4 z-1 slideDown"
+        class="w-[calc(100%*8/9-1rem)] h-[700px] left-8 -top-20 z-1 slideDown"
         style="animation-delay:1s;animation-fill-mode: backwards;"
       />
       <img
         src="images/paper2.png"
         alt="Flower"
-        class="max-w-[350px] h-[350px] left-8 bottom-0 z-1 slideUp"
+        class="w-[calc(100%*8/9-1rem)] h-[700px] left-8 -bottom-28 z-1 slideUp"
         style="animation-delay:1s;animation-fill-mode: backwards"
       />
       <img
         src="images/happy.png"
         alt="Flower"
-        class="w-[300px] h-[300px] left-15 top-0 z-5 grow"
+        class="w-[300px] h-[300px] top-0 z-5 grow"
         style="animation-delay:4s;animation-fill-mode: backwards;"
       />
       <img
@@ -59,19 +61,19 @@
         style="animation-delay:5s;animation-fill-mode: backwards;"
       />
       <div
-        class="bg-[#f2f1eb] w-8/9 h-3/5 mx-auto z-4 custom-shadow absolute flex items-center justify-center"
+        class="bg-[#f2f1eb] w-8/9 h-[550px] mx-auto z-4 custom-shadow absolute flex items-center justify-center"
       >
         <img
           src="images/image.jpg"
           alt="Flower"
-          class="relative w-8/9 object-cover object-top h-4/5 top-6 custom-shadow growBlur"
+          class="relative w-8/9 object-cover object-center h-4/5 top-6 custom-shadow growBlur"
           style="animation-delay:3s;animation-fill-mode: backwards;"
         />
       </div>
       <img
         src="images/bear.gif"
         alt="Flower"
-        class="w-[200px] h-[200px] left-2 bottom-2 z-5 grow"
+        class="w-[200px] h-[200px] left-4 bottom-4 z-5 grow"
         style="animation-delay:3s;animation-fill-mode: backwards;"
       />
     </div>
@@ -182,58 +184,49 @@
 </style>
 
 <script>
-  // 🎯 Set the target time (IST format: "HH:MM:SS")
-  const targetTime = "17:03:00"; // Change to your required time
+  // 🎯 Set the target date and time (IST format: "YYYY-MM-DD HH:MM:SS")
+  const targetDateTime = "2025-03-27 17:18:00"; // Change this to the birthday date & time
 
-  function getIndianTime() {
+  function getIndianDateTime() {
     const now = new Date();
 
-    // ✅ Get the accurate IST time using Intl API
-    const indianTime = new Intl.DateTimeFormat("en-US", {
+    // ✅ Get accurate IST date and time using Intl API
+    const indianDateTime = new Intl.DateTimeFormat("en-US", {
       timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
       hour12: false,
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-    }).format(now);
+    })
+      .format(now)
+      .replace(/\//g, "-") // Convert MM/DD/YYYY to YYYY-MM-DD format
+      .replace(",", "");
 
-    return indianTime;
+    // 🛠 Convert MM-DD-YYYY HH:MM:SS → YYYY-MM-DD HH:MM:SS
+    let parts = indianDateTime.split(" ");
+    let dateParts = parts[0].split("-");
+    let formattedDate = `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`;
+
+    return `${formattedDate} ${parts[1]}`;
   }
 
-  console.log(getIndianTime());
+  console.log("Current IST Time:", getIndianDateTime());
 
   function updateTimer() {
-    const currentTime = getIndianTime();
-    const timeLeft = getTimeDifference(currentTime, targetTime);
+    const currentDateTime = getIndianDateTime();
+    const timeLeft = getTimeDifference(currentDateTime, targetDateTime);
 
-    document.getElementById("hours").textContent =
-      `${getTimeDifference(currentTime, targetTime)[1][0]}`;
-
-    document.getElementById("minutes").textContent =
-      `${getTimeDifference(currentTime, targetTime)[1][1]}`;
-
-    document.getElementById("seconds").textContent =
-      `${getTimeDifference(currentTime, targetTime)[1][2]}`;
+    document.getElementById("days").textContent = timeLeft[1][0];
+    document.getElementById("hours").textContent = timeLeft[1][1];
+    document.getElementById("minutes").textContent = timeLeft[1][2];
+    document.getElementById("seconds").textContent = timeLeft[1][3];
 
     console.log(timeLeft[0]);
 
-    if (timeLeft[0] <= "00:00:60" && timeLeft[0] > "00:00:00") {
-      let secondsRemaining = parseInt(timeLeft[0].split(":")[2]);
-
-      document.getElementById("hours").classList.add("hidden");
-      document.getElementById("minutes").classList.add("hidden");
-      document.getElementById("colon").classList.add("hidden");
-
-      // Display the number with animation
-      let countdownDisplay = document.getElementById("seconds");
-      countdownDisplay.textContent = secondsRemaining;
-      countdownDisplay.classList.remove("countdown-animate"); // Reset animation
-      void countdownDisplay.offsetWidth; // Force reflow
-      countdownDisplay.classList.add("countdown-animate", "text-9xl");
-    }
-
-    if (currentTime >= targetTime) {
-      // 🎯 Check if it's time to reveal the content
+    if (timeLeft[0] === "00:00:00:00") {
       document.getElementById("countdown").classList.add("hidden");
       document
         .getElementById("content")
@@ -245,24 +238,32 @@
 
   // 🕒 Function to calculate the time difference
   function getTimeDifference(current, target) {
-    const [ch, cm, cs] = current.split(":").map(Number);
-    const [th, tm, ts] = target.split(":").map(Number);
+    const currentDate = new Date(current.replace(/-/g, "/"));
+    const targetDate = new Date(target.replace(/-/g, "/"));
 
-    let totalCurrentSeconds = ch * 3600 + cm * 60 + cs;
-    let totalTargetSeconds = th * 3600 + tm * 60 + ts;
+    let remainingTime = targetDate - currentDate;
 
-    if (totalCurrentSeconds > totalTargetSeconds) return "00:00:00"; // Timer reached
+    if (remainingTime <= 0) return ["00:00:00:00", ["00", "00", "00", "00"]];
 
-    let remainingSeconds = totalTargetSeconds - totalCurrentSeconds;
-    let rh = Math.floor(remainingSeconds / 3600)
+    let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
       .toString()
       .padStart(2, "0");
-    let rm = Math.floor((remainingSeconds % 3600) / 60)
+    let hours = Math.floor(
+      (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    )
       .toString()
       .padStart(2, "0");
-    let rs = (remainingSeconds % 60).toString().padStart(2, "0");
+    let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+      .toString()
+      .padStart(2, "0");
+    let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
+      .toString()
+      .padStart(2, "0");
 
-    return [`${rh}:${rm}:${rs}`, [rh, rm, rs]];
+    return [
+      `${days}:${hours}:${minutes}:${seconds}`,
+      [days, hours, minutes, seconds],
+    ];
   }
 
   // 🚀 Start the timer
