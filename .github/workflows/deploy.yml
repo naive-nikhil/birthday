@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: 18
           cache: npm
+          cache-dependency-path: frontend/package-lock.json # 👈 Ensure correct path
 
       - name: Install Dependencies
         run: |
@@ -36,7 +37,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist # This must match your `outDir`
+          path: frontend/dist # 👈 Correct output path
 
   deploy:
     needs: build
