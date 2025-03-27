@@ -1,59 +1,78 @@
-<div class="h-screen w-full flex items-center justify-center bg-gray-100">
-  <div
-    class="relative w-[425px] h-[912px] bg-[#b3a087] [&_img]:absolute shadow-2xl flex justify-center items-center z-0"
-  >
-    <img
-      src="/images/flower1.png"
-      alt="Flower"
-      class="w-[200px] h-[200px] -right-8 bottom-15 z-5"
-    />
-    <img
-      src="/images/flower2.png"
-      alt="Flower"
-      class="w-[150px] h-[150px] -left-4 -top-2 z-3"
-    />
-    <img
-      src="/images/paper1.png"
-      alt="Flower"
-      class="w-[380px] h-[380px] left-6 -top-5 z-1"
-    />
-    <img
-      src="/images/paper2.png"
-      alt="Flower"
-      class="w-[350px] h-[350px] left-8 top-4 z-1"
-    />
-    <img
-      src="/images/paper2.png"
-      alt="Flower"
-      class="w-[350px] h-[350px] left-8 bottom-0 z-1"
-    />
-    <img
-      src="/images/happy.png"
-      alt="Flower"
-      class="w-[300px] h-[300px] left-15 top-0 z-5"
-    />
-    <img
-      src="/images/love.png"
-      alt="Flower"
-      class="w-[220px] h-[220px] bottom-28 z-5"
-    />
-    <img
-      src="/images/heart.png"
-      alt="Flower"
-      class="w-[200px] h-[200px] -left-4 bottom-32 z-5"
-    />
+<div class="flex h-screen w-full items-center justify-center bg-gray-100">
+  <div id="countdown" class="text-[90px] font-extrabold flex">
+    <div class="flex gap-1 justify-center items-center">
+      <div id="hours" class=""></div>
+      <p id="colon">:</p>
+      <div id="minutes" class=""></div>
+    </div>
+    <div id="seconds" class="text-2xl"></div>
+  </div>
+  <div id="content" class="hidden">
     <div
-      class="bg-[#f2f1eb] w-8/9 h-3/5 mx-auto z-4 custom-shadow absolute flex items-center justify-center"
+      class="flex relative w-[425px] h-[912px] bg-[#b3a087] [&_img]:absolute shadow-2xl justify-center items-center z-0 overflow-hidden"
     >
       <img
-        src="/images/image.jpg"
+        src="/images/flower1.png"
         alt="Flower"
-        class="relative w-8/9 object-cover object-top h-4/5 top-6 custom-shadow transition-opacity duration-300 hover:opacity-0"
+        class="w-[200px] h-[200px] -right-8 bottom-15 z-5 slideLeft"
+        style="animation-delay:2s;animation-fill-mode: backwards;"
       />
       <img
-        src="/images/image.webp"
+        src="/images/flower2.png"
         alt="Flower"
-        class="relative w-8/9 object-cover object-top h-4/5 top-6 custom-shadow opacity-0 transition-opacity duration-300 hover:opacity-100"
+        class="w-[150px] h-[150px] -left-4 -top-2 z-3 slideRight"
+        style="animation-delay:2s;animation-fill-mode: backwards;"
+      />
+      <img
+        src="/images/paper1.png"
+        alt="Flower"
+        class="max-w-[380px] h-[380px] left-6 -top-5 z-1 slideDown"
+      />
+      <img
+        src="/images/paper2.png"
+        alt="Flower"
+        class="max-w-[350px] h-[350px] left-8 top-4 z-1 slideDown"
+        style="animation-delay:1s;animation-fill-mode: backwards;"
+      />
+      <img
+        src="/images/paper2.png"
+        alt="Flower"
+        class="max-w-[350px] h-[350px] left-8 bottom-0 z-1 slideUp"
+        style="animation-delay:1s;animation-fill-mode: backwards"
+      />
+      <img
+        src="/images/happy.png"
+        alt="Flower"
+        class="w-[300px] h-[300px] left-15 top-0 z-5 grow"
+        style="animation-delay:4s;animation-fill-mode: backwards;"
+      />
+      <img
+        src="/images/love.png"
+        alt="Flower"
+        class="w-[220px] h-[220px] bottom-28 z-5 grow"
+        style="animation-delay:5s;animation-fill-mode: backwards;"
+      />
+      <img
+        src="/images/heart.png"
+        alt="Flower"
+        class="w-[200px] h-[200px] -left-4 bottom-32 z-5 grow"
+        style="animation-delay:5s;animation-fill-mode: backwards;"
+      />
+      <div
+        class="bg-[#f2f1eb] w-8/9 h-3/5 mx-auto z-4 custom-shadow absolute flex items-center justify-center"
+      >
+        <img
+          src="/images/image.jpg"
+          alt="Flower"
+          class="relative w-8/9 object-cover object-top h-4/5 top-6 custom-shadow growBlur"
+          style="animation-delay:3s;animation-fill-mode: backwards;"
+        />
+      </div>
+      <img
+        src="/images/bear.gif"
+        alt="Flower"
+        class="w-[200px] h-[200px] left-2 bottom-2 z-5 grow"
+        style="animation-delay:3s;animation-fill-mode: backwards;"
       />
     </div>
   </div>
@@ -65,4 +84,187 @@
       rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
       rgb(209, 213, 219) 0px 0px 0px 1px inset;
   }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideLeft {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideRight {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes grow {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes growBlur {
+    0% {
+      transform: scale(0);
+      filter: blur(10px);
+    }
+    100% {
+      transform: scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes scaleFade {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 1;
+    }
+  }
+
+  .countdown-animate {
+    animation: scaleFade 1s ease-out forwards;
+  }
+
+  .slideDown {
+    animation: slideDown 2s ease;
+  }
+
+  .slideUp {
+    animation: slideUp 2s ease;
+  }
+
+  .slideLeft {
+    animation: slideLeft 2s ease;
+  }
+
+  .slideRight {
+    animation: slideRight 2s ease;
+  }
+
+  .grow {
+    animation: grow 2s ease;
+  }
+
+  .growBlur {
+    animation: growBlur 3s ease;
+  }
 </style>
+
+<script>
+  // 🎯 Set the target time (IST format: "HH:MM:SS")
+  const targetTime = "11:33:00"; // Change to your required time
+
+  function getIndianTime() {
+    const now = new Date();
+
+    // ✅ Get the accurate IST time using Intl API
+    const indianTime = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Kolkata",
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }).format(now);
+
+    return indianTime;
+  }
+
+  console.log(getIndianTime());
+
+  function updateTimer() {
+    const currentTime = getIndianTime();
+    const timeLeft = getTimeDifference(currentTime, targetTime);
+
+    document.getElementById("hours").textContent =
+      `${getTimeDifference(currentTime, targetTime)[1][0]}`;
+
+    document.getElementById("minutes").textContent =
+      `${getTimeDifference(currentTime, targetTime)[1][1]}`;
+
+    document.getElementById("seconds").textContent =
+      `${getTimeDifference(currentTime, targetTime)[1][2]}`;
+
+    console.log(timeLeft[0]);
+
+    if (timeLeft[0] <= "00:00:60" && timeLeft[0] > "00:00:00") {
+      let secondsRemaining = parseInt(timeLeft[0].split(":")[2]);
+
+      document.getElementById("hours").classList.add("hidden");
+      document.getElementById("minutes").classList.add("hidden");
+      document.getElementById("colon").classList.add("hidden");
+
+      // Display the number with animation
+      let countdownDisplay = document.getElementById("seconds");
+      countdownDisplay.textContent = secondsRemaining;
+      countdownDisplay.classList.remove("countdown-animate"); // Reset animation
+      void countdownDisplay.offsetWidth; // Force reflow
+      countdownDisplay.classList.add("countdown-animate", "text-9xl");
+    }
+
+    if (currentTime >= targetTime) {
+      // 🎯 Check if it's time to reveal the content
+      document.getElementById("countdown").classList.add("hidden");
+      document
+        .getElementById("content")
+        .classList.remove("hidden", "opacity-0", "scale-60", "blur-md");
+    } else {
+      setTimeout(updateTimer, 1000);
+    }
+  }
+
+  // 🕒 Function to calculate the time difference
+  function getTimeDifference(current, target) {
+    const [ch, cm, cs] = current.split(":").map(Number);
+    const [th, tm, ts] = target.split(":").map(Number);
+
+    let totalCurrentSeconds = ch * 3600 + cm * 60 + cs;
+    let totalTargetSeconds = th * 3600 + tm * 60 + ts;
+
+    if (totalCurrentSeconds > totalTargetSeconds) return "00:00:00"; // Timer reached
+
+    let remainingSeconds = totalTargetSeconds - totalCurrentSeconds;
+    let rh = Math.floor(remainingSeconds / 3600)
+      .toString()
+      .padStart(2, "0");
+    let rm = Math.floor((remainingSeconds % 3600) / 60)
+      .toString()
+      .padStart(2, "0");
+    let rs = (remainingSeconds % 60).toString().padStart(2, "0");
+
+    return [`${rh}:${rm}:${rs}`, [rh, rm, rs]];
+  }
+
+  // 🚀 Start the timer
+  updateTimer();
+</script>
