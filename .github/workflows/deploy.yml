@@ -1,49 +1,48 @@
-name: Deploy Astro Site to GitHub Pages
+name: Deploy Astro Site to GitHub Pages # Workflow name (appears in GitHub Actions tab)
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: [main] # ✅ Runs when code is pushed to the `main` branch
+  workflow_dispatch: # ✅ Allows manual triggering from GitHub Actions UI
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read # ✅ Allows the workflow to read repository contents
+  pages: write # ✅ Required for deploying to GitHub Pages
+  id-token: write # ✅ Used for authentication to GitHub Pages
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # ✅ Specifies the OS for the job
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # ✅ Clones your GitHub repo
 
       - name: Use Node.js 18
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4 # ✅ Sets up Node.js
         with:
           node-version: 18
-          cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
+          cache: "npm" # ✅ Caches dependencies to speed up future runs
 
       - name: Install dependencies
-        run: npm ci
-        working-directory: frontend
+        run: npm ci # ✅ Installs dependencies from package-lock.json
+        working-directory: frontend # ✅ Ensures commands run in `frontend/`
 
-      - name: Build Astro
-        run: npm run build
+      - name: Build Astro site
+        run: npm run build # ✅ Runs the Astro build command
         working-directory: frontend
 
       - name: Upload artifact for deployment
-        uses: actions/upload-pages-artifact@v2 # ✅ Correct upload action
+        uses: actions/upload-pages-artifact@v2 # ✅ Uploads the built site
         with:
-          path: frontend/dist # ✅ Ensure correct path
+          path: frontend/dist # ✅ Make sure this matches your build output folder
 
   deploy:
-    needs: build
+    needs: build # ✅ Runs only after `build` job completes successfully
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: github-pages # ✅ Deploys to GitHub Pages
+      url: ${{ steps.deployment.outputs.page_url }} # ✅ Outputs the deployment URL
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # ✅ Deploys the uploaded artifact to GitHub Pages
