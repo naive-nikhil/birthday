@@ -32,10 +32,11 @@ jobs:
         run: npm run build
         working-directory: frontend # ✅ Ensure Astro builds inside `frontend/`
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4 # ✅ Use version 4
         with:
-          path: frontend/dist # ✅ Ensure correct path for deployment
+          name: astro-build
+          path: frontend/dist # ✅ Ensure correct path
 
   deploy:
     needs: build
