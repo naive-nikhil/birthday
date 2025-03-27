@@ -9,5 +9,5 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
       },
-  outDir: '../dist',
+  outDir: 'dist',
 });
