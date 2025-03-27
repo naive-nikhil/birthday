@@ -4,7 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://naive-nikhil.github.io/birthday',
+  output: 'static',
+  base: '/birthday/',
+  site: 'https://naive-nikhil.github.io',
     vite: {
         plugins: [tailwindcss()],
       },
