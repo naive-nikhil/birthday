@@ -16,30 +16,30 @@
       <img
         src="images/flower1.png"
         alt="flower1"
-        class="w-1/2 h-[165px] -right-6 bottom-35 z-5 slideLeft"
+        class="w-[192px] aspect-square -right-[8%] bottom-[150px] z-5 slideLeft"
         style="animation-delay:2s;animation-fill-mode: backwards;"
       />
       <img
         src="images/flower2.png"
         alt="flower2"
-        class="w-1/3 h-[106px] left-0 top-25 z-3 slideRight"
+        class="w-1/3 h-auto left-0 top-25 z-3 slideRight"
         style="animation-delay:2s;animation-fill-mode: backwards;"
       />
       <img
         src="images/paper1.png"
         alt="paper1"
-        class="w-[calc(100%*8/9)] h-[284px] top-20 z-1 slideDown"
+        class="w-[calc(100%*8/9)] h-[568px] top-0 z-1 slideDown"
       />
       <img
         src="images/paper2.png"
         alt="paper2"
-        class="w-[calc(100%*8/9-1rem)] h-[268px] left-8 top-25 z-1 slideDown"
+        class="w-[calc(100%*8/9-1rem)] h-[552px] left-8 top-6 z-1 slideDown"
         style="animation-delay:1s;animation-fill-mode: backwards;"
       />
       <img
         src="images/paper2.png"
         alt="Flower"
-        class="w-[calc(100%*8/9-1rem)] h-[264px] left-8 bottom-25 z-1 slideUp"
+        class="w-[calc(100%*8/9-1rem)] h-[552px] left-8 bottom-6 z-1 slideUp"
         style="animation-delay:1s;animation-fill-mode: backwards"
       />
       <img
@@ -57,7 +57,7 @@
       <img
         src="images/heart.png"
         alt="Flower"
-        class="w-[160px] -left-8 bottom-50 z-5 grow"
+        class="w-[160px] -left-2 bottom-50 z-5 grow"
         style="animation-delay:5s;animation-fill-mode: backwards;"
       />
       <div
@@ -78,194 +78,194 @@
       />
     </div>
   </div>
+
+  <style>
+    .custom-shadow {
+      box-shadow:
+        rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+        rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    }
+
+    @keyframes slideDown {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideLeft {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideRight {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes grow {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes growBlur {
+      0% {
+        transform: scale(0);
+        filter: blur(10px);
+      }
+      100% {
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes scaleFade {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(2);
+        opacity: 1;
+      }
+    }
+
+    .countdown-animate {
+      animation: scaleFade 1s ease-out forwards;
+    }
+
+    .slideDown {
+      animation: slideDown 2s ease;
+    }
+
+    .slideUp {
+      animation: slideUp 2s ease;
+    }
+
+    .slideLeft {
+      animation: slideLeft 2s ease;
+    }
+
+    .slideRight {
+      animation: slideRight 2s ease;
+    }
+
+    .grow {
+      animation: grow 2s ease;
+    }
+
+    .growBlur {
+      animation: growBlur 3s ease;
+    }
+  </style>
+
+  <script>
+    // 🎯 Set the target date and time (IST format: "YYYY-MM-DD HH:MM:SS")
+    const targetDateTime = "2025-03-28 19:15:00"; // Change this to the birthday date & time
+
+    function getIndianDateTime() {
+      const now = new Date();
+
+      // ✅ Get accurate IST date and time using Intl API
+      const indianDateTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      })
+        .format(now)
+        .replace(/\//g, "-") // Convert MM/DD/YYYY to YYYY-MM-DD format
+        .replace(",", "");
+
+      // 🛠 Convert MM-DD-YYYY HH:MM:SS → YYYY-MM-DD HH:MM:SS
+      let parts = indianDateTime.split(" ");
+      let dateParts = parts[0].split("-");
+      let formattedDate = `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`;
+
+      return `${formattedDate} ${parts[1]}`;
+    }
+
+    console.log("Current IST Time:", getIndianDateTime());
+
+    function updateTimer() {
+      const currentDateTime = getIndianDateTime();
+      const timeLeft = getTimeDifference(currentDateTime, targetDateTime);
+
+      document.getElementById("days").textContent = timeLeft[1][0];
+      document.getElementById("hours").textContent = timeLeft[1][1];
+      document.getElementById("minutes").textContent = timeLeft[1][2];
+      document.getElementById("seconds").textContent = timeLeft[1][3];
+
+      console.log(timeLeft[0]);
+
+      if (timeLeft[0] === "00:00:00:00") {
+        document.getElementById("countdown").classList.add("hidden");
+        document
+          .getElementById("content")
+          .classList.remove("hidden", "opacity-0", "scale-60", "blur-md");
+      } else {
+        setTimeout(updateTimer, 1000);
+      }
+    }
+
+    // 🕒 Function to calculate the time difference
+    function getTimeDifference(current, target) {
+      const currentDate = new Date(current.replace(/-/g, "/"));
+      const targetDate = new Date(target.replace(/-/g, "/"));
+
+      let remainingTime = targetDate - currentDate;
+
+      if (remainingTime <= 0) return ["00:00:00:00", ["00", "00", "00", "00"]];
+
+      let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
+        .toString()
+        .padStart(2, "0");
+      let hours = Math.floor(
+        (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      )
+        .toString()
+        .padStart(2, "0");
+      let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+        .toString()
+        .padStart(2, "0");
+      let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
+        .toString()
+        .padStart(2, "0");
+
+      return [
+        `${days}:${hours}:${minutes}:${seconds}`,
+        [days, hours, minutes, seconds],
+      ];
+    }
+
+    // 🚀 Start the timer
+    updateTimer();
+  </script>
 </div>
-
-<style>
-  .custom-shadow {
-    box-shadow:
-      rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-      rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  }
-
-  @keyframes slideDown {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideUp {
-    0% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideLeft {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideRight {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes grow {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  @keyframes growBlur {
-    0% {
-      transform: scale(0);
-      filter: blur(10px);
-    }
-    100% {
-      transform: scale(1);
-      filter: blur(0);
-    }
-  }
-
-  @keyframes scaleFade {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(2);
-      opacity: 1;
-    }
-  }
-
-  .countdown-animate {
-    animation: scaleFade 1s ease-out forwards;
-  }
-
-  .slideDown {
-    animation: slideDown 2s ease;
-  }
-
-  .slideUp {
-    animation: slideUp 2s ease;
-  }
-
-  .slideLeft {
-    animation: slideLeft 2s ease;
-  }
-
-  .slideRight {
-    animation: slideRight 2s ease;
-  }
-
-  .grow {
-    animation: grow 2s ease;
-  }
-
-  .growBlur {
-    animation: growBlur 3s ease;
-  }
-</style>
-
-<script>
-  // 🎯 Set the target date and time (IST format: "YYYY-MM-DD HH:MM:SS")
-  const targetDateTime = "2025-03-28 19:15:00"; // Change this to the birthday date & time
-
-  function getIndianDateTime() {
-    const now = new Date();
-
-    // ✅ Get accurate IST date and time using Intl API
-    const indianDateTime = new Intl.DateTimeFormat("en-US", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })
-      .format(now)
-      .replace(/\//g, "-") // Convert MM/DD/YYYY to YYYY-MM-DD format
-      .replace(",", "");
-
-    // 🛠 Convert MM-DD-YYYY HH:MM:SS → YYYY-MM-DD HH:MM:SS
-    let parts = indianDateTime.split(" ");
-    let dateParts = parts[0].split("-");
-    let formattedDate = `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`;
-
-    return `${formattedDate} ${parts[1]}`;
-  }
-
-  console.log("Current IST Time:", getIndianDateTime());
-
-  function updateTimer() {
-    const currentDateTime = getIndianDateTime();
-    const timeLeft = getTimeDifference(currentDateTime, targetDateTime);
-
-    document.getElementById("days").textContent = timeLeft[1][0];
-    document.getElementById("hours").textContent = timeLeft[1][1];
-    document.getElementById("minutes").textContent = timeLeft[1][2];
-    document.getElementById("seconds").textContent = timeLeft[1][3];
-
-    console.log(timeLeft[0]);
-
-    if (timeLeft[0] === "00:00:00:00") {
-      document.getElementById("countdown").classList.add("hidden");
-      document
-        .getElementById("content")
-        .classList.remove("hidden", "opacity-0", "scale-60", "blur-md");
-    } else {
-      setTimeout(updateTimer, 1000);
-    }
-  }
-
-  // 🕒 Function to calculate the time difference
-  function getTimeDifference(current, target) {
-    const currentDate = new Date(current.replace(/-/g, "/"));
-    const targetDate = new Date(target.replace(/-/g, "/"));
-
-    let remainingTime = targetDate - currentDate;
-
-    if (remainingTime <= 0) return ["00:00:00:00", ["00", "00", "00", "00"]];
-
-    let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
-      .toString()
-      .padStart(2, "0");
-    let hours = Math.floor(
-      (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    )
-      .toString()
-      .padStart(2, "0");
-    let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
-      .toString()
-      .padStart(2, "0");
-    let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
-      .toString()
-      .padStart(2, "0");
-
-    return [
-      `${days}:${hours}:${minutes}:${seconds}`,
-      [days, hours, minutes, seconds],
-    ];
-  }
-
-  // 🚀 Start the timer
-  updateTimer();
-</script>
